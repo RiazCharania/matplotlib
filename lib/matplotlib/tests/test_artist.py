@@ -280,3 +280,13 @@ def test_artist_inspector_get_aliases():
     ai = martist.ArtistInspector(mlines.Line2D)
     aliases = ai.get_aliases()
     assert aliases["linewidth"] == {"lw"}
+
+
+def test_artist_update_fontproperties_priority():
+    # tests if fontproperties takes higher priority than size
+    plt.figure()
+    x = plt.xlabel("xLabel", fontproperties='monospace', size=18)
+    y = plt.ylabel("yLabel", size=18, fontproperties='monospace')
+    assert x.get_size() == 18
+    assert y.get_size() == 18
+    assert x.get_fontproperties() == y.get_fontproperties()

@@ -975,7 +975,15 @@ class Artist:
         """
         ret = []
         with cbook._setattr_cm(self, eventson=False):
-            for k, v in props.items():
+            prop_items = list(props.items())
+            # process fontproperties first
+            if ("fontproperties" in props.keys()):
+                fontproperties = ("fontproperties",
+                                  props.get("fontproperties"))
+                # place fontproperties as the first item in prop_items
+                prop_items.insert(0, prop_items.pop(
+                    prop_items.index(fontproperties)))
+            for k, v in prop_items:
                 k = k.lower()
                 # White list attributes we want to be able to update through
                 # art.update, art.set, setp.

@@ -1076,7 +1076,7 @@ class Axes(_AxesBase):
 
     @_preprocess_data(replace_names=["y", "xmin", "xmax", "colors"],
                       label_namer="y")
-    def hlines(self, y, xmin, xmax, colors='k', linestyles='solid',
+    def hlines(self, y, xmin, xmax, colors=None, linestyles='solid',
                label='', **kwargs):
         """
         Plot horizontal lines at each *y* from *xmin* to *xmax*.
@@ -1090,7 +1090,9 @@ class Axes(_AxesBase):
             Respective beginning and end of each line. If scalars are
             provided, all lines will have same length.
 
-        colors : array-like of colors, default: 'k'
+        colors : array-like of colors, default: None
+            If colors is None, the color will be set to the
+            rcParams['lines.color'] value
 
         linestyles : {'solid', 'dashed', 'dashdot', 'dotted'}, optional
 
@@ -1152,7 +1154,7 @@ class Axes(_AxesBase):
 
     @_preprocess_data(replace_names=["x", "ymin", "ymax", "colors"],
                       label_namer="x")
-    def vlines(self, x, ymin, ymax, colors='k', linestyles='solid',
+    def vlines(self, x, ymin, ymax, colors=None, linestyles='solid',
                label='', **kwargs):
         """
         Plot vertical lines.
@@ -1168,7 +1170,9 @@ class Axes(_AxesBase):
             Respective beginning and end of each line. If scalars are
             provided, all lines will have same length.
 
-        colors : array-like of colors, default: 'k'
+        colors : array-like of colors, default: None
+            If colors is None, the color will be set to the
+            rcParams['lines.color'] value
 
         linestyles : {'solid', 'dashed', 'dashdot', 'dotted'}, optional
 

@@ -7,6 +7,7 @@ import pytest
 
 import matplotlib as mpl
 from matplotlib import pyplot as plt
+import matplotlib.colors as mcolors
 
 
 def test_pyplot_up_to_date():
@@ -58,3 +59,22 @@ def test_nrows_error():
         plt.subplot(nrows=1)
     with pytest.raises(TypeError):
         plt.subplot(ncols=1)
+
+
+def test_default_line_colors():
+    fig, ax = plt.subplots()
+    line1 = ax.hlines(0.5, 0, 1)
+    line2 = ax.vlines(0.5, 0, 1, colors=None)
+    assert all([a == b for a, b in zip(line1.get_color()[0],
+                mcolors.to_rgba(mpl.rcParams['lines.color']))])
+
+
+def test_white_line_colors():
+    fig, ax = plt.subplots()
+    with mpl.rc_context({'lines.color': 'white'}):
+        line1 = ax.hlines(0.5, 0, 1)
+        line2 = ax.vlines(0.5, 0, 1, colors=None)
+        assert all([a == b for a, b in zip(line1.get_color()[0],
+                    mcolors.to_rgba(mpl.rcParams['lines.color']))])
+        assert all([a == b for a, b in zip(line2.get_color()[0],
+                    mcolors.to_rgba(mpl.rcParams['lines.color']))])

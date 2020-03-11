@@ -192,8 +192,8 @@ class Artist:
 
     @axes.setter
     def axes(self, new_axes):
-        if (new_axes is not None and self._axes is not None
-                and new_axes != self._axes):
+        if (new_axes is not None and self._axes is not None and
+                new_axes != self._axes):
             raise ValueError("Can not reset the axes.  You are probably "
                              "trying to re-use an artist in more than one "
                              "Axes which is not supported")
@@ -367,8 +367,8 @@ class Artist:
         """Return the `.Transform` instance used by this artist."""
         if self._transform is None:
             self._transform = IdentityTransform()
-        elif (not isinstance(self._transform, Transform)
-              and hasattr(self._transform, '_as_mpl_transform')):
+        elif (not isinstance(self._transform, Transform) and
+                hasattr(self._transform, '_as_mpl_transform')):
             self._transform = self._transform._as_mpl_transform(self.axes)
         return self._transform
 
@@ -500,8 +500,8 @@ class Artist:
         for a in self.get_children():
             # make sure the event happened in the same axes
             ax = getattr(a, 'axes', None)
-            if (mouseevent.inaxes is None or ax is None
-                    or mouseevent.inaxes == ax):
+            if (mouseevent.inaxes is None or ax is None or
+               mouseevent.inaxes == ax):
                 # we need to check if mouseevent.inaxes is None
                 # because some objects associated with an axes (e.g., a
                 # tick label) can be outside the bounding box of the
@@ -1249,8 +1249,8 @@ class ArtistInspector:
           }
         """
         names = [name for name in dir(self.o)
-                 if name.startswith(('set_', 'get_'))
-                    and callable(getattr(self.o, name))]
+                 if name.startswith(('set_', 'get_')) and
+                 callable(getattr(self.o, name))]
         aliases = {}
         for name in names:
             func = getattr(self.o, name)
@@ -1311,9 +1311,9 @@ class ArtistInspector:
             if not name.startswith('set_'):
                 continue
             func = getattr(self.o, name)
-            if (not callable(func)
-                    or len(inspect.signature(func).parameters) < 2
-                    or self.is_alias(func)):
+            if (not callable(func) or
+                    len(inspect.signature(func).parameters) < 2 or
+                    self.is_alias(func)):
                 continue
             setters.append(
                 (name[4:], f"{func.__module__}.{func.__qualname__}"))
@@ -1430,8 +1430,8 @@ class ArtistInspector:
             pad + '   :class: property-table',
             '',
             table_formatstr,
-            pad + '   ' + 'Property'.ljust(col0_len)
-            + '   ' + 'Description'.ljust(col1_len),
+            pad + '   ' + 'Property'.ljust(col0_len) +
+            '   ' + 'Description'.ljust(col1_len),
             table_formatstr,
             *[pad + '   ' + n.ljust(col0_len) + '   ' + a.ljust(col1_len)
               for n, a in zip(names, accepts)],
